@@ -49,7 +49,37 @@ header h1 {
 header .meta {
   color: var(--muted);
   font-size: 0.85rem;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+}
+.filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  margin-bottom: 16px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.filters::-webkit-scrollbar { display: none; }
+.filter-btn {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--fg);
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.filter-btn:hover {
+  border-color: var(--accent);
+}
+.filter-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }
 article {
   background: var(--card-bg);
@@ -62,8 +92,16 @@ article {
 article h2 {
   font-size: 1.05rem;
   margin: 0 0 8px;
-  line-height: 1.4;
+  line-height: 1.5;
   font-weight: 600;
+}
+article h2 a {
+  color: var(--fg);
+  text-decoration: none;
+}
+article h2 a:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 .cat {
   display: inline-block;
@@ -77,15 +115,9 @@ article h2 {
   vertical-align: 2px;
 }
 article p {
-  margin: 8px 0;
+  margin: 8px 0 0;
   font-size: 0.95rem;
 }
-.source a {
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-.source a:hover { text-decoration: underline; }
 footer {
   margin-top: 32px;
   padding-top: 16px;
@@ -101,45 +133,58 @@ footer {
 <h1>📰 週次ニュースダイジェスト</h1>
 <div class="meta">2026年04月26日 更新</div>
 </header>
-<main>
-<article>
-  <h2><span class="cat">SAP SF</span>SuccessFactors 1H 2026 リリース：Joule HRエージェント4種が5月にGA</h2>
-  <p>SAPはSuccessFactors 1H 2026リリースで、5月一般提供予定の新Jouleエージェント「Career and Talent Development」「HR Service」「People Intelligence」「Payroll」の4種を発表。Joule全体では40以上の自律AIエージェントがS/4HANA・BTP・SuccessFactorsに展開され、人事業務が会話型・意思決定支援型へ移行する。</p>
-  <p class="source"><a href="https://news.sap.com/2026/04/sap-successfactors-1h-2026-release/" target="_blank" rel="noopener">元記事 →</a></p>
+<nav class="filters">
+<button class="filter-btn active" data-filter="all">すべて</button>
+<button class="filter-btn" data-filter="HR制度">HR制度</button>
+<button class="filter-btn" data-filter="HR Tech">HR Tech</button>
+<button class="filter-btn" data-filter="SAP SF">SAP SF</button>
+<button class="filter-btn" data-filter="経営・組織">経営・組織</button>
+</nav>
+<main id="articles">
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://news.sap.com/2026/04/sap-successfactors-1h-2026-release/" target="_blank" rel="noopener">SAP SuccessFactors 1H 2026リリース：Joule AIエージェントを4種追加、5月一般提供開始</a></h2>
+  <p>2026年4月発表の1H 2026リリースでは、後継者育成、HRサービス、ワークフォース分析、ペイロール質問対応の4つのJouleエージェントを新規投入し、2026年5月にGA予定。Learningには文脈に応じた回答を返す「Intelligent Q&A」、SmartRecruiters・Employee Central・Onboardingのネイティブ統合、米国向け401(k)体験の再設計など、AIとスキルガバナンスを軸にスイート全体を底上げする内容となっている。</p>
 </article>
-<article>
-  <h2><span class="cat">HR制度</span>女性活躍推進法 改正：101人以上企業に男女賃金差異公表を義務化（4月施行）</h2>
-  <p>2026年4月1日施行の改正女性活躍推進法により、常時雇用101人以上の企業は「男女間賃金差異」と「女性管理職比率」の公表が新たに義務化。全労働者・正規・非正規の3区分で開示し、施行後最初の事業年度終了から概ね3か月以内の公表が必要となる。</p>
-  <p class="source"><a href="https://jsite.mhlw.go.jp/aichi-roudoukyoku/kaisei_jokatsu_00003.html" target="_blank" rel="noopener">元記事 →</a></p>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://www.hrpro.co.jp/trend_news.php?news_no=3500" target="_blank" rel="noopener">障害者法定雇用率が2026年7月に2.7%へ引上げ、57.9%の企業が「達成困難」</a></h2>
+  <p>2026年7月から民間企業の法定雇用率は最終段階の2.7%に上がり、対象事業主は従業員37.5人以上に拡大する見通し。HRプロ調査では現在の達成状況を問わず57.9%が対応困難と回答しており、施設整備助成金や雇用管理サポート制度の活用と、ニューロダイバーシティを含む「雇い続け活かす」戦略への転換が急務となっている。</p>
 </article>
-<article>
-  <h2><span class="cat">HR制度</span>2026年4月の人事労務 法改正パッケージ：年金・安衛法・障害者雇用</h2>
-  <p>4月施行の主な改正は、在職老齢年金の支給停止調整額引き上げ、ストレスチェック制度の対象事業所拡大（個人事業者を含む安衛対策義務化）。さらに7月から民間企業の障害者法定雇用率は2.7%に引き上げられ、人事は採用・定着・健康管理の同時対応を迫られる。</p>
-  <p class="source"><a href="https://mag.smarthr.jp/hr/procedure/2026-HRtrend/" target="_blank" rel="noopener">元記事 →</a></p>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://www.workersdoctors.co.jp/column/knowledge/houkaisei202604/" target="_blank" rel="noopener">2026年4月施行：労働安全衛生法・女性活躍推進法・年金制度の3本柱が同時スタート</a></h2>
+  <p>2026年4月施行分として、60歳以上を念頭にした高年齢労働者の作業環境整備が努力義務化（労働安全衛生法）、男女間賃金差異の公表義務が101人以上の企業に拡大（女性活躍推進法）、在職老齢年金の支給停止調整額引上げ（年金制度改正法）が同時に動く。一方で労働基準法本体の改正法案は2025年12月23日に通常国会提出が見送られ、制度設計の再調整期間に入った点も実務上の論点となっている。</p>
 </article>
-<article>
-  <h2><span class="cat">経営・組織</span>人的資本可視化指針 改訂版 公表：2026年3月期から開示拡充</h2>
-  <p>内閣官房・金融庁・経済産業省は2026年1月公表の改訂指針で、定量「従業員の状況」と定性「サステナビリティ情報」の一本化を要請。2026年3月期決算から、経営戦略と人材戦略の連動を「あるべき組織・人材像」として一貫したストーリーで開示することが事実上強制される。</p>
-  <p class="source"><a href="https://www.dir.co.jp/report/research/capital-mkt/esg/20260123_025550.html" target="_blank" rel="noopener">元記事 →</a></p>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://hrzine.jp/article/detail/7410" target="_blank" rel="noopener">タレマネ市場、AIエージェント標準搭載へ──国内407億円規模、離職予測・スキル自動抽出が実装段階</a></h2>
+  <p>世界のタレントマネジメント市場は2025年128.5億ドルから2031年300.6億ドルへ拡大見込み、国内も2025年度407億円・年率10%成長。2026年は主要SaaSがダッシュボードを読み解き離職傾向と施策を自動提案するAI、スキルシート自動読取、AIエージェントによる採用・育成プロセスの自律支援を標準搭載する段階に入り、AI人材への破格処遇と新卒採用抑制の二極化も鮮明化している。</p>
 </article>
-<article>
-  <h2><span class="cat">HR Tech</span>ピープルアナリティクス市場 急拡大：離職予測の精度90%事例も</h2>
-  <p>HR分析市場は2025年48.9億ドル→2026年57.1億ドルに拡大見込み。NECや日立、テンプホールディングス等が勤怠・評価・サーベイを統合分析し、離職予測モデルで85〜90%の精度を達成。S&P Globalは2026年のHRテック成長領域としてEX・ピープルアナリティクス・タレントインテリジェンスを挙げる。</p>
-  <p class="source"><a href="https://renue.co.jp/posts/people-analytics-hr-data-turnover-prediction-hiring-guide" target="_blank" rel="noopener">元記事 →</a></p>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://www.nttdata.com/jp/ja/trends/data-insight/2024/1129/" target="_blank" rel="noopener">テルモ「Terumo ONE Connect」が全世界7,000人に拡大、社内タレント・マーケットプレイスが本格展開</a></h2>
+  <p>テルモはAIで社内人材マッチングを行う「Terumo ONE Connect」を2025年3月に全世界拠点の約7,000人へ拡大。日立製作所は応募者・社員データから人材ポートフォリオを再設計、DeNAは2017年設置のピープルアナリティクスチームでマネジャー向けフォロー指標を運用しており、ピープルアナリティクスは「分析の試行」から「グローバルでの全社実装」フェーズに移行している。</p>
 </article>
-<article>
-  <h2><span class="cat">SAP SF</span>SAP、SmartRecruitersをSuccessFactorsに統合：採用領域のAI強化</h2>
-  <p>SAPは採用管理プラットフォームSmartRecruitersをSuccessFactorsへ統合し、採用〜オンボーディングの一気通貫を実現。Jouleとの連携により候補者スクリーニング・面接準備の自律支援が可能になり、Recruiting Management刷新の中核ピースとして位置付けられている。</p>
-  <p class="source"><a href="https://www.hr-brew.com/stories/2026/03/06/sap-launches-smartrecruiters-hiring-platform-integration-into-successfactors" target="_blank" rel="noopener">元記事 →</a></p>
+<article data-category="経営・組織">
+  <h2><span class="cat">経営・組織</span><a href="https://www.dir.co.jp/report/research/capital-mkt/esg/20260123_025550.html" target="_blank" rel="noopener">人的資本可視化指針が2026年3月改訂、「あるべき組織・人材の姿」と投資額の整理を要請</a></h2>
+  <p>内閣官房・金融庁・経済産業省は2026年3月に人的資本可視化指針の改訂版を公表し、経営戦略と人材戦略の連動を「あるべき組織・人材の姿」として明確化したうえで必要な人的資本投資を整理することを推奨。タナベコンサルのHRトレンド2026でも「全員に研修」「全員に1on1」といった労働集約的施策の見直しが論点とされ、形式的開示から戦略連動型の本質施策へのシフトが問われている。</p>
 </article>
-<article>
-  <h2><span class="cat">経営・組織</span>リスキリング 大手の動き加速：味の素は2030年までに全社員DX化</h2>
-  <p>富士通はグループ13万人を対象にDX人材化を推進、日立は「Hitachi Academy」でAI・クラウド教育を全社展開、味の素は2026〜2030年で全従業員のDXビジネス人材化を計画。一方、帝国データバンク調査では「リスキリングに積極的」な企業は26.1%にとどまり、大手と中堅以下の格差が顕在化している。</p>
-  <p class="source"><a href="https://ai-kenkyujo.com/news/reskilling-kigyou-jirei/" target="_blank" rel="noopener">元記事 →</a></p>
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://sapinsider.org/articles/successfactors-1h-release-deepens-ai-across-hr-suite/" target="_blank" rel="noopener">SuccessFactors、AIをパフォーマンス・ラーニング・後継者計画を横断する「スイート横串」へ</a></h2>
+  <p>SAPinsiderの分析によれば、1H 2026の核は単一モジュールに閉じたヘルパー型AIから、パフォーマンス管理・ラーニング・後継者計画・ピープルアナリティクスを横断して動く「スイート横串型エージェント」への転換。報酬パターンと潜在的賃金格差を分析する機能や、スキル基準を一元管理する強化版スキルガバナンスも追加され、規制対応とスキルベース組織化を同時に支える構成となっている。</p>
 </article>
 </main>
 <footer>
 <p>Updated 2026年04月26日 · Generated by Claude Code</p>
 </footer>
+<script>
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var filter = btn.dataset.filter;
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('article').forEach(function(a) {
+      var cat = a.dataset.category || '';
+      a.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+    });
+  });
+});
+</script>
 </body>
 </html>
