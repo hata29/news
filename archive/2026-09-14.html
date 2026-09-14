@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Monday Brief | 2026年09月14日</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --fg: #0f1117;
+  --card-bg: #fff;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+  --muted: #6b7280;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.10);
+  --radius: 14px;
+  --highlight: rgba(250, 204, 21, 0.4);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1117;
+    --fg: #f5f5f5;
+    --card-bg: #1a1d24;
+    --border: #2a2f3a;
+    --accent: #60a5fa;
+    --muted: #9ca3af;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.55);
+    --highlight: rgba(250, 204, 21, 0.28);
+  }
+}
+article[data-category="HR制度"] { --cat-color: #059669; --cat-bg: rgba(5, 150, 105, 0.10); }
+article[data-category="HR Tech"] { --cat-color: #9333ea; --cat-bg: rgba(147, 51, 234, 0.10); }
+article[data-category="SAP SF"] { --cat-color: #2563eb; --cat-bg: rgba(37, 99, 235, 0.10); }
+article[data-category="経営・組織"] { --cat-color: #ea580c; --cat-bg: rgba(234, 88, 12, 0.10); }
+article[data-category="AI動向"] { --cat-color: #0891b2; --cat-bg: rgba(8, 145, 178, 0.10); }
+article[data-category="世の中ニュース"] { --cat-color: #db2777; --cat-bg: rgba(219, 39, 119, 0.10); }
+@media (prefers-color-scheme: dark) {
+  article[data-category="HR制度"] { --cat-color: #34d399; --cat-bg: rgba(52, 211, 153, 0.18); }
+  article[data-category="HR Tech"] { --cat-color: #c084fc; --cat-bg: rgba(192, 132, 252, 0.18); }
+  article[data-category="SAP SF"] { --cat-color: #60a5fa; --cat-bg: rgba(96, 165, 250, 0.18); }
+  article[data-category="経営・組織"] { --cat-color: #fb923c; --cat-bg: rgba(251, 146, 60, 0.18); }
+  article[data-category="AI動向"] { --cat-color: #22d3ee; --cat-bg: rgba(34, 211, 238, 0.18); }
+  article[data-category="世の中ニュース"] { --cat-color: #f472b6; --cat-bg: rgba(244, 114, 182, 0.18); }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0;
+  padding: 16px;
+  line-height: 1.65;
+  max-width: 720px;
+  margin-inline: auto;
+  padding-bottom: 60px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+header {
+  padding: 8px 0 22px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+header h1 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--fg);
+  display: inline-block;
+  position: relative;
+}
+header h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 50px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+header .meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 16px;
+}
+.meta-divider {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+.filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px 0 14px;
+  margin-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+.filters::-webkit-scrollbar { display: none; }
+.filter-btn {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--fg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: all 0.18s ease;
+}
+.filter-btn:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.filter-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+main { counter-reset: article-counter; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+article {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--cat-color, var(--accent));
+  border-radius: var(--radius);
+  padding: 18px 18px 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  counter-increment: article-counter;
+  animation: fadeIn 0.4s ease-out;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+article:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+article::before {
+  content: counter(article-counter, decimal-leading-zero);
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 700;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0.05em;
+  opacity: 0.65;
+}
+article h2 {
+  font-size: 1.1rem;
+  margin: 0 0 10px;
+  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  padding-right: 32px;
+}
+article h2 a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s ease;
+}
+article h2 a::after {
+  content: "↗";
+  display: inline-block;
+  font-size: 0.75em;
+  margin-left: 3px;
+  opacity: 0.65;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+article h2 a:hover {
+  border-bottom-color: var(--accent);
+}
+article h2 a:hover::after {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+.cat {
+  display: inline-block;
+  background: var(--cat-bg, #e8f0fe);
+  color: var(--cat-color, var(--accent));
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  margin-right: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  vertical-align: 2px;
+}
+article p {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  color: var(--fg);
+}
+article p strong {
+  color: var(--fg);
+  font-weight: 700;
+  background: linear-gradient(transparent 60%, var(--highlight) 60%);
+  padding: 0 1px;
+}
+article p.source-domain {
+  margin-top: 12px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  background: var(--bg);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  letter-spacing: 0.02em;
+}
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  background: var(--card-bg);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  margin: 16px 0;
+}
+.archive-list {
+  margin-top: 36px;
+  padding: 16px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.archive-list h3 {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+.archive-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.archive-list li a {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+.archive-list li a:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+footer {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Monday Brief</h1>
+<div class="meta">2026年09月14日<span class="meta-divider">·</span>17件<span class="meta-divider">·</span>約9分</div>
+</header>
+<nav class="filters">
+<button class="filter-btn active" data-filter="all">すべて</button>
+<button class="filter-btn" data-filter="HR制度">HR制度</button>
+<button class="filter-btn" data-filter="HR Tech">HR Tech</button>
+<button class="filter-btn" data-filter="SAP SF">SAP SF</button>
+<button class="filter-btn" data-filter="経営・組織">経営・組織</button>
+<button class="filter-btn" data-filter="AI動向">AI動向</button>
+<button class="filter-btn" data-filter="世の中ニュース">世の中ニュース</button>
+</nav>
+<main id="articles">
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://news.sap.com/japan/2026/09/0828_sap-business-ai-release-highlights-q2-2026/" target="_blank" rel="noopener">🔥 SAP Business AI 2026年Q2リリースハイライト、Joule Workが「業務の中核ワークスペース」へ</a></h2>
+  <p>SAPが四半期リリースハイライトを公開。AIアシスタントだった<strong>Joule</strong>は<strong>Joule Work</strong>として業務プロセス実行の中核ワークスペースに再定義された。HR領域では<strong>LC Waikiki</strong>がJoule上のAIエージェントで<strong>人事プロセスの処理時間を40〜60%短縮</strong>、Bosch Digitalは開発者生産性20%向上を報告。</p>
+  <p class="source-domain">news.sap.com</p>
+</article>
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://news.sap.com/2026/04/sap-successfactors-1h-2026-release/" target="_blank" rel="noopener">SAP SuccessFactors 1H 2026リリース、スイート横断のエージェント型AIを本格展開</a></h2>
+  <p>1H 2026は「スイート全体を貫くAI」「働き方に適応するUX」「明確性・正確性・コンプライアンス重視のプロセス」「スキル基盤の強化」の4本柱。採用・人事管理・給与・学習・評価・タレント開発をつなぐAIエージェント網に加え、<strong>AI-Assisted Performance Insights</strong>が全ステップタイプで利用可能になった。</p>
+  <p class="source-domain">news.sap.com</p>
+</article>
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://sapinsider.org/articles/new-joule-agents-coming-to-bolster-ai-in-sap-successfactors/" target="_blank" rel="noopener">SuccessFactorsに新Joule HRエージェント4種、2026年5月にGA</a></h2>
+  <p>SAPは<strong>Joule HRエージェント4種</strong>（Career &amp; Talent、HR Service、Payroll、People Intelligence）を追加。サクセッションプランニングやHRケース処理、ワークフォース分析、給与問い合わせを自動化し、<strong>2026年5月</strong>に一般提供を開始した。Career and Talent Development Agentは後継者計画とリーダー候補の特定を自動化する。</p>
+  <p class="source-domain">sapinsider.org</p>
+</article>
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://www.effectivepeople.com/resources/release-management/sap-successfactors-release-schedule-2h-2026" target="_blank" rel="noopener">SuccessFactors 2H 2026リリース日程確定：プレビュー10/12・本番11/13</a></h2>
+  <p>2H 2026リリースは<strong>プレビュー2026年10月12日</strong>、<strong>本番2026年11月13日</strong>。顧客フィードバックを受け、本番前に<strong>5週間のプレビュー期間</strong>を確保する運用が継続される。運用中テナントは検証計画の前倒しが必要で、今が回帰テストとリリース評価の着手タイミングとなる。</p>
+  <p class="source-domain">effectivepeople.com</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://www.prnewswire.com/news-releases/in-2026-ai-powered-superagents-will-radically-change-hr-driving-the-largest-hr-transformation-in-decades-302666677.html" target="_blank" rel="noopener">Josh Bersin社：AI「スーパーエージェント」がHRを再編、人員は最大30%減へ</a></h2>
+  <p>Josh Bersin Companyは<strong>100種類超のHRエージェント</strong>を特定し、「スーパーエージェント」ファミリーとして分類。AIがアシスタントから業務自動化システムへ進化することで<strong>HR人員は最大30%削減</strong>が必要になる一方、従業員サービスは劇的に改善すると予測する。主要用途は採用・評価・コーチング・L&amp;D・要員管理。</p>
+  <p class="source-domain">prnewswire.com</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://joshbersin.com/2026/04/the-reinvention-of-workday-from-system-of-record-to-platform-of-agents/" target="_blank" rel="noopener">Workdayの再発明：記録システムから「エージェントのプラットフォーム」へ</a></h2>
+  <p>Workdayは買収した<strong>Sana</strong>と<strong>Paradox</strong>を組み込み、従来の「システム・オブ・レコード」から<strong>エージェント基盤</strong>への転換を進める。Josh Bersinは、HCMベンダー各社がデータ基盤の上にAIエージェント層を重ねる競争に入ったと分析。SAP・Workdayの戦略比較は次期HCM選定の論点になる。</p>
+  <p class="source-domain">joshbersin.com</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://hrzine.jp/article/detail/7398" target="_blank" rel="noopener">HRBrain、新機能「HRBrain 人材配置」提供開始</a></h2>
+  <p>HRBrainが<strong>「HRBrain 人材配置」</strong>をリリース。人材データに基づく戦略的な配置検討と、複数部門にまたがる<strong>合意形成プロセス</strong>の効率化を支援する。異動・配置の議論が属人的な調整に依存しがちな課題に対し、データを共通言語にする狙い。</p>
+  <p class="source-domain">hrzine.jp</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://www.hrtechnologyconference.com/" target="_blank" rel="noopener">HR Technology Conference 2026、10月20〜22日にラスベガスで開催</a></h2>
+  <p>世界最大のHR Tech見本市が<strong>2026年10月20〜22日</strong>、Mandalay Bayで開催。今年は<strong>3つのIntensive</strong>（ビジネスケース構築／働き方の再設計／HRにおけるAIの実務適用）を新設し、AIと変革・タレント・リーダーシップ・要員戦略を軸にアジェンダを構成する。</p>
+  <p class="source-domain">hrtechnologyconference.com</p>
+</article>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://hojyokin-portal.jp/columns/saitei_chingin" target="_blank" rel="noopener">🔥 2026年度最低賃金、全国平均1,177円に56円引き上げ</a></h2>
+  <p>2026年度の地域別最低賃金は<strong>全国加重平均1,177円</strong>（前年度1,121円から<strong>56円引き上げ</strong>）。47都道府県で54〜65円の引き上げとなり、最高は東京都<strong>1,280円</strong>、最低は宮崎県等1,085円。発効は<strong>2026年10月1日〜12月2日</strong>に順次で、岩手・熊本は12月1日、沖縄は12月2日。</p>
+  <p class="source-domain">hojyokin-portal.jp</p>
+</article>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://sr-dsg.or.jp/column/hr-labor/1078/" target="_blank" rel="noopener">カスハラ対策が全事業主の義務に、2026年10月1日施行</a></h2>
+  <p>改正<strong>労働施策総合推進法</strong>により、<strong>2026年10月1日</strong>からカスタマーハラスメント対策が全事業主の雇用管理上の措置義務となる。<strong>中小企業の猶予期間はなし</strong>。就業規則や対応マニュアルでの方針明確化、相談窓口の整備、管理職・従業員研修の実施が求められ、残り期間での体制整備が急務となる。</p>
+  <p class="source-domain">sr-dsg.or.jp</p>
+</article>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://mag.smarthr.jp/hr/labor/josei-katsuyaku-suishinhou/" target="_blank" rel="noopener">女性活躍推進法改正、2026年4月1日から101人以上企業に公表義務拡大</a></h2>
+  <p>改正<strong>女性活躍推進法</strong>が<strong>2026年4月1日</strong>施行。<strong>常時雇用101人以上</strong>の企業に「男女間賃金差異」「女性管理職比率」の情報公表が義務化される。賃金差異は全労働者・正規・非正規の3区分で算出。301人以上の企業も女性管理職比率が新たな必須項目となり、既公表企業も追加対応が必要。</p>
+  <p class="source-domain">mag.smarthr.jp</p>
+</article>
+<article data-category="経営・組織">
+  <h2><span class="cat">経営・組織</span><a href="https://mento.co.jp/news/1on1-management-survey-2026" target="_blank" rel="noopener">管理職1on1実態調査：キャリアを「よく話せている」のは3人に1人のみ</a></h2>
+  <p>mentoが<strong>100名以上企業の課長393名</strong>を対象に実施した2026年の1on1実態調査。1on1で部下のキャリアを「よく話せている」管理職は<strong>3人に1人</strong>にとどまる。対話への満足度は20代で<strong>56.4%</strong>と高い一方、30代以降は35〜39%に低下し、立場の変化による理想と現実のギャップが浮かぶ。</p>
+  <p class="source-domain">mento.co.jp</p>
+</article>
+<article data-category="AI動向">
+  <h2><span class="cat">AI動向</span><a href="https://www.anthropic.com/claude-fable-and-mythos-5-1" target="_blank" rel="noopener">🔥 Anthropic、Claude Fable 5.1 / Mythos 5.1を発表</a></h2>
+  <p>Anthropicが<strong>2026年9月1日</strong>、コーディングとナレッジワーク向けの<strong>Claude Fable 5.1</strong>（一般提供）と<strong>Claude Mythos 5.1</strong>（Trusted Accessプログラム経由）を発表。Terminal-BenchでFable 5.1は<strong>55.8%</strong>（Fable 5は42.0%）を記録。一般的なワークロードで約25%低コスト、キャッシュ読み込みは75%引き下げ。AWS・Google Cloud・Azureで同日提供。</p>
+  <p class="source-domain">anthropic.com</p>
+</article>
+<article data-category="AI動向">
+  <h2><span class="cat">AI動向</span><a href="https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html" target="_blank" rel="noopener">🔥 OpenAI、GPT-6 Astraの提供を開始</a></h2>
+  <p>OpenAIが<strong>2026年9月3日</strong>に<strong>GPT-6 Astra</strong>のロールアウトを発表、翌4日に有料ユーザーへ公開した。サイバーセキュリティ領域など一部プロンプトを拒否する<strong>制限付きバージョン</strong>での提供となり、7月のHugging Face流出を受けた安全対策強化が背景にある。フロンティアモデル競争が9月に集中した形。</p>
+  <p class="source-domain">cnbc.com</p>
+</article>
+<article data-category="AI動向">
+  <h2><span class="cat">AI動向</span><a href="https://www.anthropic.com/threat-intelligence-report-september-2026" target="_blank" rel="noopener">🔥 Anthropic、AI悪用の脅威インテリジェンスレポート2026年9月版を公開</a></h2>
+  <p>Anthropicが<strong>2026年9月10日</strong>、脅威インテリジェンスチームが<strong>過去8か月</strong>に検知・遮断した、Claudeを悪用しようとする攻撃者のオペレーション事例を公開。エンタープライズでのAI利用が広がるなか、<strong>AIガバナンス</strong>と悪用検知の実務が具体的な論点として示された。</p>
+  <p class="source-domain">anthropic.com</p>
+</article>
+<article data-category="世の中ニュース">
+  <h2><span class="cat">世の中ニュース</span><a href="https://www.nikkei.com/article/DGXZQOUB10B710Q6A910C2000000/" target="_blank" rel="noopener">🔥 日銀、9月会合で政策金利1.25%へ利上げの方針</a></h2>
+  <p>日銀は<strong>9月17〜18日</strong>の金融政策決定会合で政策金利を<strong>1.0%から1.25%へ</strong>引き上げる方針。追加利上げは6月会合以来3か月ぶりで、2024年3月以降の局面では最短間隔となる。<strong>1995年以来31年ぶり</strong>の金利水準で、原油高・円安による物価上振れリスクの抑制が狙い。</p>
+  <p class="source-domain">nikkei.com</p>
+</article>
+<article data-category="世の中ニュース">
+  <h2><span class="cat">世の中ニュース</span><a href="https://journal.jogmec.go.jp/oilgas/info-reports/info-reports_02152.html" target="_blank" rel="noopener">🔥 中東情勢の不安定化で原油価格が高値圏、9月10日終値は5月以来の水準</a></h2>
+  <p>米国とイランの攻撃の応酬激化、サウジアラビアの石油施設への攻撃、フーシ派による紅海沿岸支配の強化により、中東からの<strong>石油供給途絶懸念</strong>が増大。原油価格は上昇し、<strong>9月10日終値は5月19日以来の高水準</strong>に到達した。国内物価と企業コストへの波及が続く見通し。</p>
+  <p class="source-domain">journal.jogmec.go.jp</p>
+</article>
+</main>
+<div id="empty-state" class="empty-state" style="display:none">該当するカテゴリの記事はありません</div>
+<aside class="archive-list"><h3>📅 過去のダイジェスト</h3><ul><li><a href="archive/2026-09-07.html">2026年09月07日</a></li><li><a href="archive/2026-09-05.html">2026年09月05日</a></li><li><a href="archive/2026-08-31.html">2026年08月31日</a></li><li><a href="archive/2026-08-30.html">2026年08月30日</a></li><li><a href="archive/2026-07-06.html">2026年07月06日</a></li><li><a href="archive/2026-06-14.html">2026年06月14日</a></li><li><a href="archive/2026-05-25.html">2026年05月25日</a></li><li><a href="archive/2026-05-23.html">2026年05月23日</a></li><li><a href="archive/2026-05-18.html">2026年05月18日</a></li><li><a href="archive/2026-05-11.html">2026年05月11日</a></li></ul></aside>
+<footer>
+<p>Updated 2026年09月14日 · Generated by Claude Code</p>
+</footer>
+<script>
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var filter = btn.dataset.filter;
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var visible = 0;
+    document.querySelectorAll('article').forEach(function(a) {
+      var show = filter === 'all' || a.dataset.category === filter;
+      a.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('empty-state').style.display = visible === 0 ? '' : 'none';
+  });
+});
+</script>
+</body>
+</html>
