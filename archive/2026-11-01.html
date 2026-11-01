@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Monday Brief | 2026年11月01日</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --fg: #0f1117;
+  --card-bg: #fff;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+  --muted: #6b7280;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.10);
+  --radius: 14px;
+  --highlight: rgba(250, 204, 21, 0.4);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1117;
+    --fg: #f5f5f5;
+    --card-bg: #1a1d24;
+    --border: #2a2f3a;
+    --accent: #60a5fa;
+    --muted: #9ca3af;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.55);
+    --highlight: rgba(250, 204, 21, 0.28);
+  }
+}
+article[data-category="HR制度"] { --cat-color: #059669; --cat-bg: rgba(5, 150, 105, 0.10); }
+article[data-category="HR Tech"] { --cat-color: #9333ea; --cat-bg: rgba(147, 51, 234, 0.10); }
+article[data-category="SAP SF"] { --cat-color: #2563eb; --cat-bg: rgba(37, 99, 235, 0.10); }
+article[data-category="経営・組織"] { --cat-color: #ea580c; --cat-bg: rgba(234, 88, 12, 0.10); }
+article[data-category="AI動向"] { --cat-color: #0891b2; --cat-bg: rgba(8, 145, 178, 0.10); }
+article[data-category="世の中ニュース"] { --cat-color: #db2777; --cat-bg: rgba(219, 39, 119, 0.10); }
+@media (prefers-color-scheme: dark) {
+  article[data-category="HR制度"] { --cat-color: #34d399; --cat-bg: rgba(52, 211, 153, 0.18); }
+  article[data-category="HR Tech"] { --cat-color: #c084fc; --cat-bg: rgba(192, 132, 252, 0.18); }
+  article[data-category="SAP SF"] { --cat-color: #60a5fa; --cat-bg: rgba(96, 165, 250, 0.18); }
+  article[data-category="経営・組織"] { --cat-color: #fb923c; --cat-bg: rgba(251, 146, 60, 0.18); }
+  article[data-category="AI動向"] { --cat-color: #22d3ee; --cat-bg: rgba(34, 211, 238, 0.18); }
+  article[data-category="世の中ニュース"] { --cat-color: #f472b6; --cat-bg: rgba(244, 114, 182, 0.18); }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0;
+  padding: 16px;
+  line-height: 1.65;
+  max-width: 720px;
+  margin-inline: auto;
+  padding-bottom: 60px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+header {
+  padding: 8px 0 22px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+header h1 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--fg);
+  display: inline-block;
+  position: relative;
+}
+header h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 50px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+header .meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 16px;
+}
+.meta-divider {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+.filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px 0 14px;
+  margin-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+.filters::-webkit-scrollbar { display: none; }
+.filter-btn {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--fg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: all 0.18s ease;
+}
+.filter-btn:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.filter-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+main { counter-reset: article-counter; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+article {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--cat-color, var(--accent));
+  border-radius: var(--radius);
+  padding: 18px 18px 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  counter-increment: article-counter;
+  animation: fadeIn 0.4s ease-out;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+article:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+article::before {
+  content: counter(article-counter, decimal-leading-zero);
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 700;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0.05em;
+  opacity: 0.65;
+}
+article h2 {
+  font-size: 1.1rem;
+  margin: 0 0 10px;
+  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  padding-right: 32px;
+}
+article h2 a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s ease;
+}
+article h2 a::after {
+  content: "↗";
+  display: inline-block;
+  font-size: 0.75em;
+  margin-left: 3px;
+  opacity: 0.65;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+article h2 a:hover {
+  border-bottom-color: var(--accent);
+}
+article h2 a:hover::after {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+.cat {
+  display: inline-block;
+  background: var(--cat-bg, #e8f0fe);
+  color: var(--cat-color, var(--accent));
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  margin-right: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  vertical-align: 2px;
+}
+article p {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  color: var(--fg);
+}
+article p strong {
+  color: var(--fg);
+  font-weight: 700;
+  background: linear-gradient(transparent 60%, var(--highlight) 60%);
+  padding: 0 1px;
+}
+article p.source-domain {
+  margin-top: 12px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  background: var(--bg);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  letter-spacing: 0.02em;
+}
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  background: var(--card-bg);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  margin: 16px 0;
+}
+.archive-list {
+  margin-top: 36px;
+  padding: 16px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.archive-list h3 {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+.archive-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.archive-list li a {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+.archive-list li a:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+footer {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Monday Brief</h1>
+<div class="meta">2026年11月01日<span class="meta-divider">·</span>15件<span class="meta-divider">·</span>約8分</div>
+</header>
+<nav class="filters">
+<button class="filter-btn active" data-filter="all">すべて</button>
+<button class="filter-btn" data-filter="HR制度">HR制度</button>
+<button class="filter-btn" data-filter="HR Tech">HR Tech</button>
+<button class="filter-btn" data-filter="SAP SF">SAP SF</button>
+<button class="filter-btn" data-filter="経営・組織">経営・組織</button>
+<button class="filter-btn" data-filter="AI動向">AI動向</button>
+<button class="filter-btn" data-filter="世の中ニュース">世の中ニュース</button>
+</nav>
+<main id="articles">
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://www.prnewswire.com/news-releases/workday-introduces-work-intelligence-to-help-customers-design-work-for-ai-302906710.html" target="_blank" rel="noopener">Workday、職務をタスク単位で可視化する「Work Intelligence」発表</a></h2>
+  <p><strong>Workday</strong>は年次イベント「Workday Rising 2026」で、職務をタスク単位に分解しAI活用領域やスキル強化ニーズを可視化する新製品「<strong>Work Intelligence</strong>」を発表した。基盤となるSkills Cloudの利用顧客は<strong>3,450社以上</strong>、スキルオントロジーは<strong>75,000以上</strong>に及ぶ。</p>
+  <p class="source-domain">prnewswire.com</p>
+</article>
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://community.sap.com/t5/human-capital-management-blog-posts-by-members/sap-successfactors-2h-2026-release-what-s-new-amp-what-matters/ba-p/14506168" target="_blank" rel="noopener">🔥 SAP SuccessFactors「2H 2026リリース」、全モジュールに更新</a></h2>
+  <p><strong>SAP SuccessFactors</strong>の<strong>2H 2026リリース</strong>はプレビューが10月12日に公開済みで、本番展開は<strong>11月13〜15日</strong>を予定。Employee Central・Payroll・Performance & Goals・<strong>Learning</strong>など全モジュールが更新され、Learningではコース詳細やタスクチェックリストのドラフトを自動生成するAI支援機能も追加される。</p>
+  <p class="source-domain">community.sap.com</p>
+</article>
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://news.sap.com/2026/10/sap-teched-ai-developers-build-what-matters-autonomous-execution/" target="_blank" rel="noopener">🔥 SAP、TechEd 2026でAIエージェント開発・ガバナンスツール「Joule Studio」を拡充</a></h2>
+  <p>SAPは年次カンファレンス「<strong>SAP TechEd 2026</strong>」で、AIエージェントの観測性・権限統制を強化する「<strong>Joule Studio</strong>」の新機能と、EU AI法対応を支援する「AI Governance Assistant」を発表。SAP管理ランタイム上でのカスタムエージェント実行を<strong>2026年12月まで無料提供</strong>する。</p>
+  <p class="source-domain">news.sap.com</p>
+</article>
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://community.sap.com/t5/human-capital-management-blog-posts-by-members/sap-successfactors-2h-2026-release-rbps-are-changing-here-s-what-to-check/ba-p/14507534" target="_blank" rel="noopener">🔥 SAP SuccessFactors、ロールベース権限(RBP)が変更 11月13日までに確認を</a></h2>
+  <p>2H 2026リリースで<strong>ロールベース権限（RBP）</strong>に<strong>6つの変更</strong>が入り、<strong>2026年11月13日</strong>時点で本番環境に反映される。既存の権限設定が意図せず変わる可能性があるため、管理者は本番反映前の事前確認が推奨されている。</p>
+  <p class="source-domain">community.sap.com</p>
+</article>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://www.nikkei.com/article/DGXZQOUA089YT0Y6A001C2000000/" target="_blank" rel="noopener">国家公務員給与、5年連続の引き上げを閣議決定</a></h2>
+  <p>政府は<strong>人事院勧告</strong>どおりの改定を閣議決定し、国家公務員の月給を平均<strong>3.51%（1万5,056円）</strong>引き上げる。ボーナスは<strong>4.70カ月分</strong>とし、<strong>5年連続</strong>の引き上げとなる。異動に伴う転居手当の新設も盛り込まれた。</p>
+  <p class="source-domain">nikkei.com</p>
+</article>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://roumu.com/archives/133253.html" target="_blank" rel="noopener">2026年10月施行、カスハラ防止義務化と「106万円の壁」撤廃</a></h2>
+  <p><strong>2026年10月1日</strong>より、カスタマーハラスメント対策と求職者へのセクハラ防止措置が全事業主に義務化。最低賃金は全国加重平均<strong>1,177円</strong>に引き上げられ、短時間労働者の社会保険加入要件「<strong>106万円の壁</strong>」（月額8.8万円の賃金要件）が撤廃された。</p>
+  <p class="source-domain">roumu.com</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://prtimes.jp/main/html/rd/p/000000137.000030340.html" target="_blank" rel="noopener">🔥 HERP、面接評価を自動下書きする「AI評価ドラフト」が面接対応に拡大</a></h2>
+  <p>株式会社<strong>HERP</strong>は採用管理システム「<strong>HERP AI Recruiter</strong>」の「<strong>AI評価ドラフト</strong>」機能を面接にも対応させた。面接の書き起こしと応募情報からAIが評価の下書きを自動生成し、評価入力の工数削減と選考スピード向上を支援する。</p>
+  <p class="source-domain">prtimes.jp</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://prtimes.jp/main/html/rd/p/000000123.000061059.html" target="_blank" rel="noopener">🔥 AIスカウト「RecUp」、中途採用特化版「RecUp Career」を正式リリース</a></h2>
+  <p>株式会社<strong>Delight</strong>は、AIスカウトサービス「<strong>RecUp</strong>」の中途採用特化版「<strong>RecUp Career</strong>」を正式リリース。候補者の経歴に応じた個別スカウト文面をAIが生成し、専任のカスタマーサクセスが運用を支援する体制とした。</p>
+  <p class="source-domain">prtimes.jp</p>
+</article>
+<article data-category="経営・組織">
+  <h2><span class="cat">経営・組織</span><a href="https://www.pc-webzine.com/article/4067" target="_blank" rel="noopener">従業員エンゲージメント市場、2026年に158億円規模へ拡大</a></h2>
+  <p>矢野経済研究所調べで、<strong>従業員エンゲージメント</strong>診断・サーベイ市場は<strong>2025年133.2億円</strong>（前年比119.7%）から<strong>2026年158億円</strong>（同118.6%）へ拡大見込み。人的資本情報開示ニーズの高まりが背景にある。</p>
+  <p class="source-domain">pc-webzine.com</p>
+</article>
+<article data-category="経営・組織">
+  <h2><span class="cat">経営・組織</span><a href="https://prtimes.jp/main/html/rd/p/000000090.000048788.html" target="_blank" rel="noopener">管理職の1on1調査、キャリアを「よく話せている」のは3人に1人</a></h2>
+  <p>mento調べ（課長<strong>393名</strong>対象）で、部下とキャリアについて「よく話せている」管理職は<strong>35.6%</strong>のみ、「話したいが話せていない」が<strong>53.6%</strong>に達した。育成より成果を重視する評価構造が<strong>1on1</strong>での対話を阻害する一因とされる。</p>
+  <p class="source-domain">prtimes.jp</p>
+</article>
+<article data-category="AI動向">
+  <h2><span class="cat">AI動向</span><a href="https://claude.com/resources/articles/claude-duet" target="_blank" rel="noopener">🔥 Anthropic、能動型AIエージェント「Claude Duet」のリサーチプレビューを開始</a></h2>
+  <p>Anthropicは<strong>Claude Opus 5.5</strong>を基盤とする能動型エージェントアプリ「<strong>Claude Duet</strong>」のリサーチプレビューを開始。Gmail・Slackなど<strong>6,000以上</strong>のコネクタを使い離席中もバックグラウンドで作業し、重要な判断はユーザー承認を必須とする。米国のPro/Max/Ultra購読者向けに提供。</p>
+  <p class="source-domain">claude.com</p>
+</article>
+<article data-category="AI動向">
+  <h2><span class="cat">AI動向</span><a href="https://www.bleepingcomputer.com/news/artificial-intelligence/openai-launches-gpt-61-terra-with-3x-faster-ai-agents-50-percent-lower-pricing/" target="_blank" rel="noopener">🔥 OpenAI、視覚推論とPC操作に強い中位モデル「GPT-6.1 Terra」を発表</a></h2>
+  <p>OpenAIは画面認識やPC操作に優れた新モデル「<strong>GPT-6.1 Terra</strong>」を発表。API価格は入力100万トークン<strong>1ドル</strong>・出力<strong>5ドル</strong>で前モデル比<strong>50%</strong>安く、処理速度は約<strong>3倍</strong>に向上した。ChatGPT・Codex・APIで提供開始。</p>
+  <p class="source-domain">bleepingcomputer.com</p>
+</article>
+<article data-category="世の中ニュース">
+  <h2><span class="cat">世の中ニュース</span><a href="https://news.web.nhk/newsweb/na/nd-20261027de66070" target="_blank" rel="noopener">🔥 ロシア・ウクライナ、南部オレシュキで局地停戦が発効</a></h2>
+  <p>米国の仲介により、ロシアとウクライナは南部ヘルソン州<strong>オレシュキ</strong>をめぐる局地停戦に合意し、<strong>日本時間27日午前10時</strong>に発効した。停戦違反は確認されておらず、<strong>11月1日</strong>まで継続するとロシア高官が明らかにした。</p>
+  <p class="source-domain">nhk.or.jp</p>
+</article>
+<article data-category="世の中ニュース">
+  <h2><span class="cat">世の中ニュース</span><a href="https://www.gaitame.com/media/entry/2026/10/30/165152" target="_blank" rel="noopener">🔥 日銀、政策金利1.25%で据え置き ETF売却は加速へ</a></h2>
+  <p>日本銀行は<strong>10月29〜30日</strong>の金融政策決定会合で、政策金利を<strong>1.25%</strong>程度に据え置くことを決定。基調的な物価上昇率が「2%目標と概ね整合的」と判断し、<strong>ETF売却ペースを約2.6倍</strong>に加速する方針を示した。</p>
+  <p class="source-domain">gaitame.com</p>
+</article>
+<article data-category="世の中ニュース">
+  <h2><span class="cat">世の中ニュース</span><a href="https://www.gaitame.com/media/entry/2026/10/29/080211" target="_blank" rel="noopener">🔥 FRB、10月FOMCで政策金利を据え置き 内容はタカ派的</a></h2>
+  <p>FRBは<strong>10月27〜28日</strong>のFOMCで政策金利を<strong>3.75〜4.00%</strong>で据え置いた。市場予想通りの決定だったが、一部理事が利上げを求めて反対票を投じるなど内容は<strong>タカ派的</strong>で、<strong>12月</strong>の追加利上げの可能性が示唆された。</p>
+  <p class="source-domain">gaitame.com</p>
+</article>
+</main>
+<div id="empty-state" class="empty-state" style="display:none">該当するカテゴリの記事はありません</div>
+<aside class="archive-list"><h3>📅 過去のダイジェスト</h3><ul><li><a href="archive/2026-09-14.html">2026年09月14日</a></li><li><a href="archive/2026-09-07.html">2026年09月07日</a></li><li><a href="archive/2026-09-05.html">2026年09月05日</a></li><li><a href="archive/2026-08-31.html">2026年08月31日</a></li><li><a href="archive/2026-08-30.html">2026年08月30日</a></li><li><a href="archive/2026-07-06.html">2026年07月06日</a></li><li><a href="archive/2026-06-14.html">2026年06月14日</a></li><li><a href="archive/2026-05-25.html">2026年05月25日</a></li><li><a href="archive/2026-05-23.html">2026年05月23日</a></li><li><a href="archive/2026-05-18.html">2026年05月18日</a></li></ul></aside>
+<footer>
+<p>Updated 2026年11月01日 · Generated by Claude Code</p>
+</footer>
+<script>
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var filter = btn.dataset.filter;
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var visible = 0;
+    document.querySelectorAll('article').forEach(function(a) {
+      var show = filter === 'all' || a.dataset.category === filter;
+      a.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('empty-state').style.display = visible === 0 ? '' : 'none';
+  });
+});
+</script>
+</body>
+</html>
