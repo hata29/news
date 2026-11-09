@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Monday Brief | 2026年11月10日</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --fg: #0f1117;
+  --card-bg: #fff;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+  --muted: #6b7280;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.10);
+  --radius: 14px;
+  --highlight: rgba(250, 204, 21, 0.4);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1117;
+    --fg: #f5f5f5;
+    --card-bg: #1a1d24;
+    --border: #2a2f3a;
+    --accent: #60a5fa;
+    --muted: #9ca3af;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.55);
+    --highlight: rgba(250, 204, 21, 0.28);
+  }
+}
+article[data-category="HR制度"] { --cat-color: #059669; --cat-bg: rgba(5, 150, 105, 0.10); }
+article[data-category="HR Tech"] { --cat-color: #9333ea; --cat-bg: rgba(147, 51, 234, 0.10); }
+article[data-category="SAP SF"] { --cat-color: #2563eb; --cat-bg: rgba(37, 99, 235, 0.10); }
+article[data-category="経営・組織"] { --cat-color: #ea580c; --cat-bg: rgba(234, 88, 12, 0.10); }
+article[data-category="AI動向"] { --cat-color: #0891b2; --cat-bg: rgba(8, 145, 178, 0.10); }
+article[data-category="世の中ニュース"] { --cat-color: #db2777; --cat-bg: rgba(219, 39, 119, 0.10); }
+@media (prefers-color-scheme: dark) {
+  article[data-category="HR制度"] { --cat-color: #34d399; --cat-bg: rgba(52, 211, 153, 0.18); }
+  article[data-category="HR Tech"] { --cat-color: #c084fc; --cat-bg: rgba(192, 132, 252, 0.18); }
+  article[data-category="SAP SF"] { --cat-color: #60a5fa; --cat-bg: rgba(96, 165, 250, 0.18); }
+  article[data-category="経営・組織"] { --cat-color: #fb923c; --cat-bg: rgba(251, 146, 60, 0.18); }
+  article[data-category="AI動向"] { --cat-color: #22d3ee; --cat-bg: rgba(34, 211, 238, 0.18); }
+  article[data-category="世の中ニュース"] { --cat-color: #f472b6; --cat-bg: rgba(244, 114, 182, 0.18); }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0;
+  padding: 16px;
+  line-height: 1.65;
+  max-width: 720px;
+  margin-inline: auto;
+  padding-bottom: 60px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+header {
+  padding: 8px 0 22px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+header h1 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--fg);
+  display: inline-block;
+  position: relative;
+}
+header h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 50px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+header .meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 16px;
+}
+.meta-divider {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+.filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px 0 14px;
+  margin-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+.filters::-webkit-scrollbar { display: none; }
+.filter-btn {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--fg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: all 0.18s ease;
+}
+.filter-btn:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.filter-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+main { counter-reset: article-counter; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+article {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--cat-color, var(--accent));
+  border-radius: var(--radius);
+  padding: 18px 18px 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  counter-increment: article-counter;
+  animation: fadeIn 0.4s ease-out;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+article:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+article::before {
+  content: counter(article-counter, decimal-leading-zero);
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 700;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0.05em;
+  opacity: 0.65;
+}
+article h2 {
+  font-size: 1.1rem;
+  margin: 0 0 10px;
+  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  padding-right: 32px;
+}
+article h2 a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s ease;
+}
+article h2 a::after {
+  content: "↗";
+  display: inline-block;
+  font-size: 0.75em;
+  margin-left: 3px;
+  opacity: 0.65;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+article h2 a:hover {
+  border-bottom-color: var(--accent);
+}
+article h2 a:hover::after {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+.cat {
+  display: inline-block;
+  background: var(--cat-bg, #e8f0fe);
+  color: var(--cat-color, var(--accent));
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  margin-right: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  vertical-align: 2px;
+}
+article p {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  color: var(--fg);
+}
+article p strong {
+  color: var(--fg);
+  font-weight: 700;
+  background: linear-gradient(transparent 60%, var(--highlight) 60%);
+  padding: 0 1px;
+}
+article p.source-domain {
+  margin-top: 12px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  background: var(--bg);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  letter-spacing: 0.02em;
+}
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  background: var(--card-bg);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  margin: 16px 0;
+}
+.archive-list {
+  margin-top: 36px;
+  padding: 16px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.archive-list h3 {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+.archive-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.archive-list li a {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+.archive-list li a:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+footer {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Monday Brief</h1>
+<div class="meta">2026年11月10日<span class="meta-divider">·</span>15件<span class="meta-divider">·</span>約8分</div>
+</header>
+<nav class="filters">
+<button class="filter-btn active" data-filter="all">すべて</button>
+<button class="filter-btn" data-filter="HR制度">HR制度</button>
+<button class="filter-btn" data-filter="HR Tech">HR Tech</button>
+<button class="filter-btn" data-filter="SAP SF">SAP SF</button>
+<button class="filter-btn" data-filter="経営・組織">経営・組織</button>
+<button class="filter-btn" data-filter="AI動向">AI動向</button>
+<button class="filter-btn" data-filter="世の中ニュース">世の中ニュース</button>
+</nav>
+<main id="articles">
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://community.sap.com/t5/human-capital-management-blog-posts-by-members/sap-successfactors-2h-2026-release-what-s-new-amp-what-matters/ba-p/14506168" target="_blank" rel="noopener">🔥 SAP SuccessFactors「2H 2026」、11月13〜14日に本番展開</a></h2>
+  <p>SAPは<strong>SuccessFactors 2H 2026リリース</strong>を<strong>11月13〜14日</strong>に本番環境へ展開。テーマは「<strong>Autonomous HCM</strong>」で、採用・オンボーディング・人事サービス・給与・学習・報酬など全モジュールにAIアシスタントを拡張する。</p>
+  <p>プレビューは10月12日に実施済み。</p>
+  <p class="source-domain">community.sap.com</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://www.hr-brew.com/stories/dayforce-closes-deal-to-acquire-ai-interviewing-platform-ribbon" target="_blank" rel="noopener">🔥 Dayforce、AI面接の「Ribbon」買収を完了</a></h2>
+  <p>タレントマネジメント大手<strong>Dayforce</strong>が、音声・動画で会話するAI面接官を提供する<strong>Ribbon</strong>の買収を完了。Ribbonは延べ<strong>100万件以上</strong>の面接を実施済みで、<strong>Agentic Recruiting</strong>機能に統合される。</p>
+  <p>買収合意は10月23日に発表されていた。</p>
+  <p class="source-domain">hr-brew.com</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://www.cnbc.com/2026/11/08/ai-recruitment-agency-fees.html" target="_blank" rel="noopener">🔥 AIが採用スピードを加速、人材紹介フィーに圧力</a></h2>
+  <p>CNBCの報道によると、AIによる候補者の検索・スクリーニング効率化が進み、<strong>人材紹介会社のフィー構造</strong>に変化の兆し。業界再編やリストラを見込む声と、関係構築力で単価を維持できるとの見方が分かれている。</p>
+  <p class="source-domain">cnbc.com</p>
+</article>
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://www.savictech.com/insights/sap-successfactors-ai-agents-skills-hr-2026/" target="_blank" rel="noopener">SuccessFactors「Joule」、人事特化AIエージェント群を拡充</a></h2>
+  <p><strong>Joule</strong>ベースのAIエージェントが<strong>People Intelligence</strong>（人員・離職・スキル分析）、<strong>HR Service</strong>（休暇・福利厚生の問い合わせ対応）、<strong>Payroll</strong>など業務クラスタ別に整備され、HRBPの定型業務からの解放を狙う。</p>
+  <p class="source-domain">savictech.com</p>
+</article>
+<article data-category="SAP SF">
+  <h2><span class="cat">SAP SF</span><a href="https://zalaris.com/resources/resource-library/sap-successfactors-2h-2026-release-highlights-from-hcm-modules" target="_blank" rel="noopener">Employee Centralに組織変更シミュレーション新機能</a></h2>
+  <p><strong>Employee Central</strong>に、事業部・コストセンター・ポジション単位で組織変更を試算できる新ワークスペースが追加。People Profileには添付書類を扱う「Documents」カテゴリも新設された。</p>
+  <p class="source-domain">zalaris.com</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://peopleanalytics.or.jp/news/7953/" target="_blank" rel="noopener">「Digital HR Competition 2026」審査結果、NTTドコモ等が発表</a></h2>
+  <p>ピープルアナリティクス&HRテクノロジー協会主催の<strong>Digital HR Competition 2026</strong>の審査結果が11月3日に出揃い、<strong>NTTドコモ</strong>やセプテーニ・ホールディングスがスキルマネジメント活用事例を発表。11月9〜10日には「人事のAI・DX文化祭2026」も渋谷で開催。</p>
+  <p class="source-domain">peopleanalytics.or.jp</p>
+</article>
+<article data-category="HR Tech">
+  <h2><span class="cat">HR Tech</span><a href="https://hrtechedge.com/leadership-development/talogy-adds-ai-simulations-to-inview-leadership" target="_blank" rel="noopener">Talogy、リーダーシップ評価にAIシミュレーションを追加</a></h2>
+  <p>タレントマネジメント企業<strong>Talogy</strong>が「<strong>InView Leadership</strong>」を改良し、対話型AI・音声・デジタルペルソナを使ったリーダーシップ評価シミュレーションを初めて導入。3層評価フレームワークと組み合わせ、育成への接続を強化する。</p>
+  <p class="source-domain">hrtechedge.com</p>
+</article>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://www.obc.co.jp/360/list/post197" target="_blank" rel="noopener">女性活躍推進法改正、情報公表義務が101人以上企業に拡大</a></h2>
+  <p><strong>2026年4月1日</strong>施行の女性活躍推進法改正で、情報公表義務の対象が<strong>従業員301人以上から101人以上</strong>の企業に拡大。新たに対象となる101〜300人規模の企業は「<strong>男女間賃金差異</strong>」と「<strong>女性管理職比率</strong>」の公表が必須となる。</p>
+  <p class="source-domain">obc.co.jp</p>
+</article>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://www.works-hi.co.jp/businesscolumn/roudoukijunhou" target="_blank" rel="noopener">労働基準法「40年ぶり大改正」、2026年通常国会提出は見送り</a></h2>
+  <p>厚労省研究会が示した<strong>連続勤務13日まで</strong>の制限や<strong>勤務間インターバル11時間</strong>義務化などを含む労基法見直しは、2026年通常国会への法案提出が見送られる方針。有給休暇の賃金算定を「通常賃金方式」に統一する案も検討中。</p>
+  <p class="source-domain">works-hi.co.jp</p>
+</article>
+<article data-category="HR制度">
+  <h2><span class="cat">HR制度</span><a href="https://career-research.mynavi.jp/column/20261027_116549/" target="_blank" rel="noopener">2026年度最低賃金、全国加重平均1,177円に　企業の疲弊感浮く</a></h2>
+  <p>2026年度の地域別最低賃金は全国加重平均で<strong>56円増の1,177円</strong>となり過去2番目の上げ幅。2024年以降3年連続で50円超の引き上げが続き、4割超の企業が「ペースが速い」と受け止めている。</p>
+  <p class="source-domain">career-research.mynavi.jp</p>
+</article>
+<article data-category="経営・組織">
+  <h2><span class="cat">経営・組織</span><a href="https://prtimes.jp/main/html/rd/p/000000047.000053804.html" target="_blank" rel="noopener">1on1を組織開発に接続、離職率30%減の実践例</a></h2>
+  <p>個人のキャリア支援としての1on1を、職場全体の変化につなげる取り組みが注目。心理的安全性と成長実感を設計に組み込んだ企業では、半年で<strong>離職率が30%減少</strong>、上司を信頼できると回答した割合が<strong>52%から78%</strong>に向上した。</p>
+  <p class="source-domain">prtimes.jp</p>
+</article>
+<article data-category="AI動向">
+  <h2><span class="cat">AI動向</span><a href="https://fortune.com/2026/11/05/openai-debuts-new-cybersecurity-focused-ai-model-amid-growing-alarm-about-ai-driven-cyber-attacks/" target="_blank" rel="noopener">🔥 OpenAI、サイバーセキュリティ特化モデル「GPT-6 Cyber」発表</a></h2>
+  <p>OpenAIが<strong>11月5日</strong>に脆弱性発見に特化した「<strong>GPT-6 Cyber</strong>」を発表。Linuxで948件、Firefoxで81件の脆弱性発見に貢献した一方、悪用リスクの高さから社内安全基準で「<strong>Critical</strong>」に分類し、当面は限定顧客にのみ提供する。</p>
+  <p class="source-domain">fortune.com</p>
+</article>
+<article data-category="AI動向">
+  <h2><span class="cat">AI動向</span><a href="https://claude.com/resources/product-updates" target="_blank" rel="noopener">🔥 Claude、企業向けセキュリティ強化と個人向け新機能を相次ぎ公開</a></h2>
+  <p>Anthropicは11月前半、<strong>Claude Enterprise</strong>にセキュリティセンターや管理者向けアクセス制御を追加する一方、個人向けには銀行口座と連携する「<strong>Personal Finance</strong>」機能をベータ公開。エンタープライズ向けにはコスト管理用の<strong>プロジェクトタグ</strong>機能も加わった。</p>
+  <p class="source-domain">claude.com</p>
+</article>
+<article data-category="世の中ニュース">
+  <h2><span class="cat">世の中ニュース</span><a href="https://www.nikkei.com/article/DGXZQOFL060SRTW6A101C2000000/" target="_blank" rel="noopener">🔥 日経平均、歴代3位の3,643円安　米中間選挙でAI規制懸念</a></h2>
+  <p><strong>11月6日</strong>、日経平均は前日比<strong>3,643円安</strong>の<strong>57,434円</strong>で引け、半年ぶりに6万円を割り込んだ。米中間選挙で民主党が優勢となりAI・データセンター規制への懸念が強まったことが背景で、半導体株を中心に世界同時株安となった。</p>
+  <p class="source-domain">nikkei.com</p>
+</article>
+<article data-category="世の中ニュース">
+  <h2><span class="cat">世の中ニュース</span><a href="https://www.nikkei.com/article/DGXZQOUB20ANG0Q6A021C2000000/" target="_blank" rel="noopener">日銀、10月会合は政策金利1.25%で据え置き　12月利上げが視野</a></h2>
+  <p>日銀は<strong>10月29〜30日</strong>の金融政策決定会合で政策金利を<strong>1.25%程度</strong>に据え置き。基調的な物価上昇率は<strong>2%目標</strong>に達したとの認識を示し、市場関係者の8割超が次の利上げを<strong>12月</strong>と予想している。</p>
+  <p class="source-domain">nikkei.com</p>
+</article>
+</main>
+<div id="empty-state" class="empty-state" style="display:none">該当するカテゴリの記事はありません</div>
+<aside class="archive-list"><h3>📅 過去のダイジェスト</h3><ul><li><a href="archive/2026-11-03.html">2026年11月03日</a></li><li><a href="archive/2026-11-01.html">2026年11月01日</a></li><li><a href="archive/2026-09-14.html">2026年09月14日</a></li><li><a href="archive/2026-09-07.html">2026年09月07日</a></li><li><a href="archive/2026-09-05.html">2026年09月05日</a></li><li><a href="archive/2026-08-31.html">2026年08月31日</a></li><li><a href="archive/2026-08-30.html">2026年08月30日</a></li><li><a href="archive/2026-07-06.html">2026年07月06日</a></li><li><a href="archive/2026-06-14.html">2026年06月14日</a></li><li><a href="archive/2026-05-25.html">2026年05月25日</a></li></ul></aside>
+<footer>
+<p>Updated 2026年11月10日 · Generated by Claude Code</p>
+</footer>
+<script>
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var filter = btn.dataset.filter;
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var visible = 0;
+    document.querySelectorAll('article').forEach(function(a) {
+      var show = filter === 'all' || a.dataset.category === filter;
+      a.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('empty-state').style.display = visible === 0 ? '' : 'none';
+  });
+});
+</script>
+</body>
+</html>
